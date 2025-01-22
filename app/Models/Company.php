@@ -10,7 +10,7 @@ class Company extends Model
 {
     use HasFactory;
     protected $guarded = ["id"];
-
+    protected $primaryKey = "c_id";
     public function users(): HasMany
     {
         return $this->hasMany(User::class, "u_company_id", "c_id");

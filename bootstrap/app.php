@@ -18,16 +18,11 @@ return Application::configure(basePath: dirname(__DIR__))
         }
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->append([
-            CompanyAuthMiddleware::class,
-            AdminAuthMiddleware::class
-        ]);
-
         $middleware->alias([
             "authAdmin"=>AdminAuthMiddleware::class,
             "authCompany"=>CompanyAuthMiddleware::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+
     })->create();

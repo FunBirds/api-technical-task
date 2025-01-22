@@ -6,7 +6,6 @@ use App\Http\Requests\AdminLoginRequest;
 use App\Http\Resources\AdminLoginSuccessResource;
 use App\Models\Admin;
 
-
 class AdminController extends Controller
 {
     public function login(AdminLoginRequest $request)

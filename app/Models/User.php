@@ -14,7 +14,7 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     protected $guarded = ["id"];
-
+    protected $primaryKey = "u_id";
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class, "c_id", "u_company_id");
