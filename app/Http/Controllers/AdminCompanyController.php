@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CompanyStoreRequest;
 use App\Http\Requests\CompanyUpdateRequest;
+use App\Http\Resources\CompanyShowIndexResource;
 use App\Http\Resources\CompanyShowResource;
 use App\Models\Company;
 use Illuminate\Support\Facades\Storage;
@@ -15,7 +16,7 @@ class AdminCompanyController extends Controller
      */
     public function index()
     {
-        return CompanyShowResource::collection(Company::paginate(50));
+        return CompanyShowIndexResource::collection(Company::paginate(50));
     }
 
     /**
@@ -60,6 +61,7 @@ class AdminCompanyController extends Controller
      */
     public function show(Company $company)
     {
+        $company->load("users");
         return new CompanyShowResource($company);
     }
 

@@ -8,3 +8,4 @@ Route::post("/admin/login", [AdminController::class, "login"]);
 
 Route::apiResource("/admin/company", AdminCompanyController::class)
     ->middleware("authAdmin");
+
