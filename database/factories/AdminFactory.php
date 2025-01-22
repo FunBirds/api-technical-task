@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Admin>
@@ -20,7 +21,8 @@ class AdminFactory extends Factory
         return [
             "a_name"=> $this->faker->name,
             "a_email" => $this->faker->unique()->safeEmail,
-            "a_password" => Hash::make("password")
+            "a_password" => Hash::make("password"),
+            "remember_token"=>Str::random()
         ];
     }
 }
