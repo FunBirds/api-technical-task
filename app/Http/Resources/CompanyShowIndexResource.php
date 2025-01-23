@@ -15,6 +15,7 @@ class CompanyShowIndexResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            "id"=> $this->c_id,
             "name" => $this->c_name,
             "owner" => $this->c_owner,
             "address" => $this->c_address,

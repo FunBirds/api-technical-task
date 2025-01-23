@@ -7,10 +7,13 @@ use App\Http\Requests\CompanyUpdateRequest;
 use App\Http\Resources\CompanyShowIndexResource;
 use App\Http\Resources\CompanyShowResource;
 use App\Models\Company;
+use App\Traits\Company\CompanyHelper;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class AdminCompanyController extends Controller
 {
+    use CompanyHelper;
     /**
      * Display a listing of the resource.
      */
@@ -33,6 +36,7 @@ class AdminCompanyController extends Controller
             'c_website' => $validated['website'],
             'c_phone' => $validated['phone'],
             'c_password' => bcrypt($validated['password']),
+            'remember_token' => Str::random(25)
         ];
         #----- Company Logo Download [START] -----#
         if ($request->hasFile('logo')) {
@@ -63,51 +67,6 @@ class AdminCompanyController extends Controller
     {
         $company->load("users");
         return new CompanyShowResource($company);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(CompanyUpdateRequest $request, Company $company)
-    {
-        $validated = $request->validated();
-
-        $data = [
-            'c_name' => $validated['name'] ?? $company->c_name,
-            'c_owner' => $validated['owner'] ?? $company->c_owner,
-            'c_address' => $validated['address'] ?? $company->c_address,
-            'c_email' => $validated['email'] ?? $company->c_email,
-            'c_website' => $validated['website'] ?? $company->c_website,
-            'c_phone' => $validated['phone'] ?? $company->c_phone,
-        ];
-
-        if (isset($validated['password'])) {
-            $data['c_password'] = bcrypt($validated['password']);
-        }
-
-        #----- Company Logo Update [START] -----#
-        if ($request->hasFile('logo')) {
-            if ($company->c_logo && file_exists(storage_path('public/companies/logo' . $company->c_logo))) {
-                unlink(storage_path('public/companies/logo' . $company->c_logo));
-            }
-
-            $file = $request->file('logo');
-            $extension = $file->getClientOriginalExtension();
-            $filename = $data["c_name"] . time() . '.' . $extension;
-            Storage::putFileAs(
-                'public/companies/logo',
-                $file,
-                $filename
-            );
-            $data['c_logo'] = $filename;
-        }
-        #----- Company Logo Update [END] -----#
-        $company->update($data);
-
-        return response()->json([
-            'code'=>200,
-            'message' => 'Company updated successfully'
-        ]);
     }
 
     /**

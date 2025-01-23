@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Company extends Model
 {
     use HasFactory;
-    protected $guarded = ["id"];
+    protected $guarded = ["c_id"];
     protected $primaryKey = "c_id";
     public function users(): HasMany
     {

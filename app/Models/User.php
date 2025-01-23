@@ -13,7 +13,7 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
-    protected $guarded = ["id"];
+    protected $guarded = ["u_id"];
     protected $primaryKey = "u_id";
     public function company(): BelongsTo
     {
