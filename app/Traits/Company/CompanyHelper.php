@@ -43,7 +43,7 @@ trait CompanyHelper
                 $file,
                 $filename
             );
-            $data['c_logo'] = $filename;
+            $data['c_logo'] = $this->makeImageUrl($filename);
         }
         #----- Company Logo Update [END] -----#
         $company->update($data);
@@ -52,5 +52,19 @@ trait CompanyHelper
             'code'=>200,
             'message' => 'Company updated successfully'
         ]);
+    }
+
+    protected function makeImageUrl($image) : string
+    {
+        $app_env = config("services.env");
+        $url = "";
+        if (!empty($image)) {
+            if ($app_env == "local") {
+                $url = url("/storage/app/private/public/companies/logo/" . $image);
+            } else {
+                $url = config("services.url") . "/attachments/companies/logo/" . $image;
+            }
+        }
+        return $url;
     }
 }

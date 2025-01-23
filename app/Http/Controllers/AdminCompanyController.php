@@ -48,7 +48,7 @@ class AdminCompanyController extends Controller
                 $file,
                 $filename
             );
-            $data['c_logo'] = $filename;
+            $data['c_logo'] = $this->makeImageUrl($filename);
         }
         #----- Company Logo Download [END] -----#
 
