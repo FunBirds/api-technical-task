@@ -9,11 +9,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    env:
-      REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-      REMOTE_USERNAME: ${{ secrets.REMOTE_USERNAME }}
-      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -33,9 +28,9 @@ jobs:
       - name: Deploy to Remote Server
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ env.REMOTE_HOST }}
-          username: ${{ env.REMOTE_USERNAME }}
-          key: ${{ env.SSH_PRIVATE_KEY }}
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /var/www/api.abdullajonov.uz/company-api
             git pull
