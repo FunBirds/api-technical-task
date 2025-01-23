@@ -35,4 +35,4 @@ jobs:
             cd /var/www/api.abdullajonov.uz/company-api
             git pull
             /usr/bin/php /usr/bin/composer && /usr/bin/php /usr/bin/composer update
-            /usr/bin/php artisan migrate:fresh --seed
+            /usr/bin/php artisan migrate
