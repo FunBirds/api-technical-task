@@ -34,6 +34,6 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
-    'url'=>env('HELPER_URL'),
+    'url'=>env('APP_URL'),
     'env'=>env("APP_ENV")
 ];
